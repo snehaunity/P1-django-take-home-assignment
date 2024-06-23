@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearby Food Trucks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button{
+            background-color: blue;
+            color: white;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search for Nearby Food Trucks</h1>
+        <input type="text" id="latitude" placeholder="Enter latitude" required>
+        <input type="text" id="longitude" placeholder="Enter longitude" required>
+        <button onclick="fetchFoodTrucks()">Search</button>
+        <ul id="results"></ul>
+    </div>
+
+    <script>
+        function fetchFoodTrucks() {
+            var latitude = document.getElementById('latitude').value;
+            var longitude = document.getElementById('longitude').value;
+            var apiUrl = `http://127.0.0.1:8000/nearby-foodtrucks/?latitude=${latitude}&longitude=${longitude}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var resultsList = document.getElementById('results');
+                    resultsList.innerHTML = ''; // Clear previous results
+                    data.forEach(truck => {
+                        var li = document.createElement('li');
+                        li.textContent = `${truck.name} - ${truck.address}`;
+                        resultsList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
