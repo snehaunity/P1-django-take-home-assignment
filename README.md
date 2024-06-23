@@ -13,5 +13,5 @@ Before you start, ensure you have the following installed:
 
 1. *Clone the Repository*
    ```bash
-   git clone https://yourrepositoryurl.com/yourproject.git
-   cd yourproject
+   git clone https://github.com/snehaunity/P1-django-take-home-assignment.git
+   cd foodtruck-project
